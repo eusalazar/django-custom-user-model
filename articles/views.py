@@ -24,7 +24,7 @@ class ArticleUpdateView(LoginRequiredMixin, UpdateView): # new
   fields = ('title', 'body',)
   template_name = 'article_edit.html'
   login_url = 'login' # new
-
+  
   def dispatch(self, request, *args, **kwargs): # new 
     obj = self.get_object()
     if obj.author != self.request.user:
@@ -37,7 +37,7 @@ class ArticleDeleteView(LoginRequiredMixin, DeleteView): # new
     template_name = 'article_delete.html'
     success_url = reverse_lazy('article_list')
     login_url = 'login' # new
-
+    
     def dispatch(self, request, *args, **kwargs): # new 
       obj = self.get_object()
       if obj.author != self.request.user:
@@ -49,9 +49,9 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):
   template_name = 'article_new.html'
   fields = ('title', 'body')
   login_url = 'login' 
-
-
+  
+  
   def form_valid(self, form): # new 
-    form.instance.author = self.request.user 
-    return super().form_valid(form)
+      form.instance.author = self.request.user 
+      return super().form_valid(form)
   
